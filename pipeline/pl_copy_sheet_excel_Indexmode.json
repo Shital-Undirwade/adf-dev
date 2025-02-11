@@ -1,0 +1,103 @@
+{
+	"name": "pl_copy_sheet_excel_Indexmode",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.SheetIndex",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "ExcelSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_source_excel_sheet_copy",
+									"type": "DatasetReference",
+									"parameters": {
+										"SheetName": {
+											"value": "@item().SheetIndex",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_target_index_excelsheet",
+									"type": "DatasetReference",
+									"parameters": {
+										"Indexsheet": {
+											"value": "@item().SheetIndex",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"SheetIndex": {
+				"type": "array",
+				"defaultValue": [
+					0,
+					2
+				]
+			}
+		},
+		"folder": {
+			"name": "Copy sheet of excel"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-02-02T19:56:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

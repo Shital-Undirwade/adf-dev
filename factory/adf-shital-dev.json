@@ -1,0 +1,21 @@
+{
+	"name": "adf-shital-dev",
+	"properties": {
+		"globalParameters": {
+			"container": {
+				"type": "string",
+				"value": "gen2container"
+			},
+			"filepath": {
+				"type": "string",
+				"value": "target"
+			}
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6b7450ff-e96d-4ce0-b6c3-b5fe6fcc0aec",
+		"tenantId": "820f5091-09da-4f72-9797-eda87cf9d900"
+	}
+}

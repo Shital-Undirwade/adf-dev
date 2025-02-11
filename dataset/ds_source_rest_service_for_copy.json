@@ -1,0 +1,24 @@
+{
+	"name": "ds_source_rest_service_for_copy",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_rest_api_for_copy",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"sourcepagenumberparameter": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@dataset().sourcepagenumberparameter",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

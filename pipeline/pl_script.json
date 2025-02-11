@@ -1,0 +1,61 @@
+{
+	"name": "pl_script",
+	"properties": {
+		"activities": [
+			{
+				"name": "Script1",
+				"type": "Script",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "ls_source_sql",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": "PRINT 'start of statement'\nselect * from salesitems\nPRINT 'End of statement'"
+						},
+						{
+							"type": "NonQuery",
+							"text": "create table scripttable(tablename VARCHAR(20),table_status varchar(20))"
+						},
+						{
+							"parameters": [
+								{
+									"name": "playername",
+									"type": "String",
+									"value": "Rohit",
+									"direction": "Input"
+								},
+								{
+									"name": "team",
+									"type": "String",
+									"value": "MI",
+									"direction": "Input"
+								}
+							],
+							"type": "Query",
+							"text": "select * from iplteams where name =@playername and team = @team"
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
+			}
+		],
+		"folder": {
+			"name": "Script Activity"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-02-03T11:05:33Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

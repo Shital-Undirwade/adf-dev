@@ -1,0 +1,89 @@
+{
+	"name": "pl_Setvariable",
+	"properties": {
+		"activities": [
+			{
+				"name": "ADFName",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "ADFName",
+					"value": {
+						"value": "@pipeline().DataFactory",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "PipelineRunID",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "ADFName",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "PipelineRunID",
+					"value": {
+						"value": "@pipeline().RunId",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "PipelineName",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "PipelineRunID",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "PipeLineName",
+					"value": {
+						"value": "@pipeline().Pipeline",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"ADFName": {
+				"type": "String"
+			},
+			"PipelineRunID": {
+				"type": "String"
+			},
+			"PipeLineName": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "Variables"
+		},
+		"annotations": [],
+		"lastPublishTime": "2025-01-25T22:47:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
