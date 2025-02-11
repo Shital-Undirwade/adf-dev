@@ -1,18 +1,12 @@
 {
-	"name": "pl_copy_sql_table",
+	"name": "pl_copy_csv_file_new_for_cicd",
 	"properties": {
+		"description": "copy csv file data from source to target",
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "copy-csv-file",
 				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Wait_for_cicd",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -23,10 +17,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select * from employees where salary>70000",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
 					},
 					"sink": {
 						"type": "DelimitedTextSink",
@@ -51,29 +50,20 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_source_sql_copy_table",
+						"referenceName": "ds_source_adls_copy_file",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_target_sql_table",
+						"referenceName": "ds_target_adls_copy_file",
 						"type": "DatasetReference"
 					}
 				]
-			},
-			{
-				"name": "Wait_for_cicd",
-				"type": "Wait",
-				"dependsOn": [],
-				"userProperties": [],
-				"typeProperties": {
-					"waitTimeInSeconds": 1
-				}
 			}
 		],
 		"annotations": [],
-		"lastPublishTime": "2025-01-20T21:36:31Z"
+		"lastPublishTime": "2025-01-18T23:07:02Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
