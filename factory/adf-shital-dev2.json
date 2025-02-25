@@ -1,0 +1,9 @@
+{
+	"name": "adf-shital-dev2",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0c88bc8d-afde-416c-b5c2-433f1ab44af7",
+		"tenantId": "dc1f3ed3-dee2-4b2a-b11e-d8fadfba7fdd"
+	}
+}
